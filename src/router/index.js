@@ -1,23 +1,49 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import ArticleDetail from '../views/ArticleDetail.vue'
+import ArticleHome from '../views/ArticleHome.vue'
+import PlaceOnFile from '../views/PlaceOnFile.vue'
+import PostArcitle from '../views/back/PostArcitle.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
+    //重定向
+    redirect: '/home',
     name: 'Home',
-    component: Home
+    component: Home,
+    children: [
+      {
+        path: '/home',
+        component: ArticleHome
+      },
+      {
+        path: '/articleDetail',
+        component: ArticleDetail
+      },
+      {
+        path: '/placeonfile',
+        component: PlaceOnFile
+      },
+      {
+        path: '/postarticle',
+        component: PostArcitle
+      }
+    ]
   },
-  {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  }
+
+
+  // {
+  //   path: '/about',
+  //   name: 'About',
+  //   // route level code-splitting
+  //   // this generates a separate chunk (about.[hash].js) for this route
+  //   // which is lazy-loaded when the route is visited.
+  //   component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+  // }
 ]
 
 const router = new VueRouter({
