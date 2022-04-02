@@ -1,13 +1,82 @@
 var express =require("express");
 var path = require("path");
 var multer = require('multer');
+const bodyParser = require('body-parser')
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/my-blog');
 var app=express();
+var db = mongoose.connection;
+app.use(bodyParser.urlencoded({extended:false}))
+app.use(bodyParser.json())
+db.on('error', console.error.bind(console, 'connection error:'));
 
 
 
-app.listen("8083",function () {
-    console.log("服务启动")
-});
+
+db.once('open', function() {
+    //设计建立一个表结构
+    console.log('数据库连接成功')
+var ArticleSchema = mongoose.Schema({
+    aid: { type : Number, index: { unique: true } },
+        title: String,
+        content: String,
+        tags: [String],
+        date: Date,
+        isPublish: Boolean,
+  });
+
+    
+
+   //将文档架构发布为模型
+  var Article = mongoose.model('articles', ArticleSchema);
+  //保存文章
+  app.post('/api/postarticle', function (req, res) {
+    //获取自增的aid
+    Article.count((err,count)=>{
+      var article={
+        aid:count,
+        title:req.body.title,
+        content:req.body.content,
+        date:req.body.date,
+        isPublish:req.body.isPublish,
+        tags:req.body.tags
+
+      }
+      console.log('收到发表文章请求',req.body)
+      Article(article).save()
+      console.log('保存成功')
+    res.status(200).send('succeed in saving new passage.')
+    })
+    
+
+    
+  })
+ // 获取某篇文章
+app.get('/api/article/:aid', function (req, res)  {
+    //req.params.aid为前端传入的请求参数
+      console.log('收到详情页的请求')
+      
+
+      Article.findOne({aid: req.params.aid}, (err, doc) => {
+      if (err) {
+          console.log(err)
+      } else {
+          res.status(200).send(doc)
+      }
+  })
+  
+  })
+  //获取全部已发表文章
+  app.get('/api/articles', (req, res) => {
+    Article.find({isPublish: true}).exec().then((articles)=>{
+      res.send(articles)
+    })
+  })
+
+
+})
+
+
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb){
@@ -21,17 +90,9 @@ var storage = multer.diskStorage({
     storage: storage
   }).single('img');
   
-
-app.all("/*", function(req, res, next) {
-    // 跨域处理
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "X-Requested-With");
-    res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
-    res.header("X-Powered-By", ' 3.2.1');
-    res.header("Content-Type", "application/json;charset=utf-8");
-    next(); // 执行下一个路由
-})
 //拦截请求
+//开发静态资源
+app.use('/public/',express.static('./public/'))
 //前端上传图片
 app.post('/api/uploadimage', function (req, res) {
     upload(req, res, function (err) {
@@ -42,7 +103,7 @@ app.post('/api/uploadimage', function (req, res) {
         res.end(err.message);
         return
       }
-      let url = 'http://' + req.headers.host + 'public/resource/' + req.file.originalname
+      let url = 'http://' + req.headers.host + '/public/resource/' + req.file.originalname
       res.writeHead(200);
       res.end(JSON.stringify({'url': url}));
       console.log('-----------------上传完成------------------');
@@ -51,4 +112,6 @@ app.post('/api/uploadimage', function (req, res) {
     })
     
   })
-  
+  app.listen("8083",function () {
+    console.log("服务启动")
+});

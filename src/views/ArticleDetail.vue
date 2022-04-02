@@ -1,6 +1,6 @@
 <template>
   <article class="full">
-      <h1>一个由 Node.js vm 引发的 OOM 血案</h1>
+      <h1>{{article.title}}</h1>
       <span class="post-meta">
           写于
           <time> 2018 年 06 月 14 日 18 时 29 分</time>
@@ -8,11 +8,16 @@
           更新于
           <time> 2021 年 12 月 31 日 11 时 22 分</time>
       </span>
-      <div class="content">
-         55555555555555555555555555ssss
-         sssssssssss
-         ssssssssssss
-         ssssssss
+      <div class="content mt-2">
+          <mavon-editor 
+    ref="md"  
+    style="min-height: 500px" 
+    v-model="article.content"
+    :subfield=false
+    defaultOpen=preview
+    :toolbarsFlag=false
+    />
+         
       </div>
       <hr>
         
@@ -20,8 +25,24 @@
 </template>
 
 <script>
-
 export default {
+    data(){
+        return{
+           article: {},
+        }
+    },
+    methods:{
+         async getArticleDetail() {
+    // 获取router中传入的id
+      const aid =this.$route.params.id;
+      const { data: res } = await this.$http.get("/api/article/" + aid);
+      this.article = res;
+      console.log(this.article);
+    },
+    },
+    created(){
+         this.getArticleDetail()
+    }
 
 }
 </script>

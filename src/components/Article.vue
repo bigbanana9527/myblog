@@ -1,20 +1,24 @@
 <template>
   <div class="item">
-     <a href="/articleDetail">
-         <h2 class="home-title">图片主题色提取算法小结</h2>
-     </a>
-     <span class="post-meta">写于 2014 年 09 月 17 日 11 时 34 分</span>
-     <p class="post-excerpt">图片主题色提取算法小结图片主题色提取算法小结图片主题色提取算法小结图片主题色提取算法小结图片主题色提取算法小结
-         图片主题色提取算法小结图片主题色提取算法小结图片主题色提取算法小结图片主题色提取算法小结图片主题色提取算法小结
-         图片主题色提取算法小结图片主题色提取算法小结v图片主题色提取算法小结图片主题色提取算法小结图片主题色提取算法小结图片主题色提取算法小结
-         图片主题色提取算法小结图片主题色提取算法小结v图片主题色提取算法小结v图片主题色提取算法小结v图片主题色提取算法小结
+     <div @click="gotoDetail(aid)">
+         <h2 class="home-title">{{title}}</h2>
+     </div>
+     <span class="post-meta">写于 {{date}}</span>
+     <p class="post-excerpt overflow-hidden">
+         {{content}}
      </p>
   </div>
 </template>
 
 <script>
 export default {
-
+    props:['aid','title','content','date'],
+    methods:{
+        gotoDetail(id){
+            //跳转到详情页，传入具体的id值
+            this.$router.push({name:"articleDetail",params:{id:id}})
+        }
+    }
 }
 </script>
 

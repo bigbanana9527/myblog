@@ -18,12 +18,14 @@ const routes = [
     children: [
       {
         path: '/home',
-        component: ArticleHome
+        component: ArticleHome,
       },
       {
-        path: '/articleDetail',
-        component: ArticleDetail
+        path: '/articledetail/:id',
+        component: ArticleDetail,
+        name:'articleDetail',
       },
+      
       {
         path: '/placeonfile',
         component: PlaceOnFile
