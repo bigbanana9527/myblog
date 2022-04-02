@@ -5,14 +5,14 @@
     :title='item.title'
     :date='item.date'
     :content='item.content'></Article>
-    <nav aria-label="Page navigation example" class="mt-3">
-  <ul class="pagination">
+    <nav aria-label="Page navigation example" class="mt-3 ">
+  <ul class="pagination justify-content-center">
     <li class="page-item" @click="prevPage">
       <a class="page-link" href="#" aria-label="Previous">
         <span aria-hidden="true">&laquo;</span>
       </a>
     </li>
-    <li class="page-item" v-for="(item,index) in indexs" :key="index"><a class="page-link" href="#">{{item}}</a></li>
+    <li class="page-item" v-for="(item,index) in indexs" :key="index" @click="changeCurrentPage(item)"><a class="page-link" href="#">{{item}}</a></li>
     <li class="page-item" @click="nextPage">
       <a class="page-link" href="#" aria-label="Next">
         <span aria-hidden="true">&raquo;</span>
@@ -60,10 +60,8 @@ export default {
     this.totalPage=Math.ceil(this.allArticleList.length/this.pageSize)
     //计算得0时设置为1
     this.totalPage= this.totalPage== 0 ? 1 : this.totalPage
-    console.log('总页数为',this.totalPage)
-    console.log(this.indexs)
     this.indexs=this.createArray(this.totalPage);
-    console.log(this.indexs)
+
     },
     prevPage(){
       if(this.currentPage==1) return
@@ -77,6 +75,10 @@ export default {
       this.currentPage++
       this.setcurrentPageData()
     },
+    changeCurrentPage(i){
+          this.currentPage=i
+          this.setcurrentPageData()
+        },
     //创建从1到count的index数组 
     createArray(count){
             var arr=[];
@@ -84,7 +86,8 @@ export default {
                 arr.push(i);
             }
             return arr;
-        }
+        },
+        
 
   },
   created(){

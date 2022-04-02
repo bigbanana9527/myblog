@@ -2,23 +2,37 @@
   <div class="footer">
       <section class="coopright">
           © 2022 - 2022
-          <a href="">
-              死月
-              吃圡蕾特
+          <a href="/postarticle">
+              发表
+              文章测试
           </a>
       </section>
       <section class="intro">
-          由
-          驱动
-          挂载
-          主题
+          <strong>{{record.title}}</strong>
+              <p>--{{record.achievement}}</p>
       </section>
   </div>
 </template>
 
 <script>
 export default {
+data(){
+    return{
+       record:{}
+    }
+},
+methods:{
+   async getrecordList() {
+      const { data: res } = await this.$http.get('/api/records')
+      //从数组中随机取一个元素并赋值
+      this.record=res[Math.floor(Math.random()*res.length)]
+      console.log(this.record)
+},
 
+},
+created(){
+  this.getrecordList()
+}
 }
 </script>
 

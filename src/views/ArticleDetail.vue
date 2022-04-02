@@ -3,7 +3,7 @@
       <h1>{{article.title}}</h1>
       <span class="post-meta">
           写于
-          <time> 2018 年 06 月 14 日 18 时 29 分</time>
+          <time> {{article.date}}</time>
           <br>
           更新于
           <time> 2021 年 12 月 31 日 11 时 22 分</time>

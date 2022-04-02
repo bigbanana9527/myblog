@@ -1,8 +1,13 @@
 var express =require("express");
+var fs = require("fs");
 var path = require("path");
 var multer = require('multer');
 const bodyParser = require('body-parser')
 var mongoose = require('mongoose');
+//record
+var contents = fs.readFileSync("./public/record.json");
+var data = JSON.parse(contents);
+
 mongoose.connect('mongodb://localhost/my-blog');
 var app=express();
 var db = mongoose.connection;
@@ -16,6 +21,7 @@ db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
     //设计建立一个表结构
     console.log('数据库连接成功')
+    //博客文章表结构
 var ArticleSchema = mongoose.Schema({
     aid: { type : Number, index: { unique: true } },
         title: String,
@@ -24,9 +30,6 @@ var ArticleSchema = mongoose.Schema({
         date: Date,
         isPublish: Boolean,
   });
-
-    
-
    //将文档架构发布为模型
   var Article = mongoose.model('articles', ArticleSchema);
   //保存文章
@@ -74,6 +77,7 @@ app.get('/api/article/:aid', function (req, res)  {
   })
 
 
+
 })
 
 
@@ -112,6 +116,12 @@ app.post('/api/uploadimage', function (req, res) {
     })
     
   })
+    //获取record
+    app.get('/api/records',(req,res)=>{
+      var data = JSON.parse(contents);
+      console.log(data)
+      res.send(data)
+    })
   app.listen("8083",function () {
     console.log("服务启动")
 });

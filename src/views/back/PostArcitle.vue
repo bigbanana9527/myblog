@@ -1,6 +1,14 @@
 <template>
   <article class="full">
     <h1>发布新文章...</h1>
+    <h5>标题：</h5>
+    <input type="text" class="form-control mb-3" v-model="form.title">
+    <h5>标签：</h5>
+        <div class="mb-3">
+<input type="text" class="form-control col-4" v-if="inputVisible" v-model="newtag" @blur="onInputConfirm()" @keydown.enter="onInputConfirm()" >
+<button type="button" class="btn btn-primary btn=sm" @click="addNewTag()" v-else>+Tag</button>
+<span v-for="item in form.tags" :key="item" class="badge badge-warning ml-2 text-center">{{item}}</span>
+    </div>
     <mavon-editor 
     ref="md"  
     style="min-height: 500px" 
@@ -19,19 +27,30 @@ data(){
     return{
         form:{
             aid:'0',
-            title:'www',
+            title:'',
             content:'',
             date:'',
             isPublish:true,
             tags:[]
-        }
+        },
+        //标签输入框的显示
+        inputVisible:false,
+        //新增标签内容
+        newtag:''
     }
 },
 methods:{
     post(){
         this.form.date= new Date()
         const article=this.form
-        this.$http.post('/api/postarticle',article)
+        this.$http.post('/api/postarticle',article).then(
+           (res)=>{
+               if(res.status!==200) return alert('添加失败')
+               alert('添加成功')
+               //添加成功后跳转至
+               this.$router.push('/home')
+           }
+        )
         console.log("已提交发送文章请求")
     },
 
@@ -62,7 +81,22 @@ methods:{
                console.log(this.$refs.md)
                
            })
-        }
+        },
+        //点击标签，显示输入框
+  addNewTag(){
+    this.inputVisible=true
+  },
+  onInputConfirm(){
+       
+        const val=this.newtag
+        
+        if(!val||this.form.tags.indexOf(val)!==-1) return 
+        this.form.tags.push(val)
+        console.log(this.form.tags)
+        this.newtag=''
+        this.inputVisible=false
+        
+  },
         
 
 }

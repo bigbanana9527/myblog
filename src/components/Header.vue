@@ -5,7 +5,7 @@
             <img src="../assets/xiaoxin.png" alt="" class="logo mt-5">
         </a>
         <h1>
-            <a href="">艾克斯の编码者</a>
+            <a href="">永远の小新</a>
         </h1>
         <nav>
             <ul class="row">
@@ -16,9 +16,9 @@
             </ul>
             <div class="xnews-icon">
                 <a href="">s</a>
-                <a href="">g</a>
                 <a href="">h</a>
-                <a href="">y</a>
+                <a href="">e</a>
+                <a href="">i</a>
             </div>
         </nav>
         <div class="space">
