@@ -26,7 +26,6 @@ methods:{
       const { data: res } = await this.$http.get('/api/records')
       //从数组中随机取一个元素并赋值
       this.record=res[Math.floor(Math.random()*res.length)]
-      console.log(this.record)
 },
 
 },
