@@ -75,6 +75,35 @@ app.get('/api/article/:aid', function (req, res)  {
       res.send(articles)
     })
   })
+  // 删除文章
+app.delete('/api/article/:aid',  (req, res) => {
+  Article.remove({aid: req.params.aid}, (err, data) => {
+      if (err) {
+          console.log(err)
+      } else {
+        res.send(data)
+      }
+  })
+
+})
+//后端做分页查询
+// app.get('/api/article', (req, res) => {
+//   //const urlModule = require('url');
+//   let params = urlModule.parse(req.url, true).query;
+//   //当前页数,如果用户传了这个参数，那就以用户传的为准。如果用户没传，那就默认是 第一页
+//   const page = params.page
+//   //每页显示多少条,默认为10
+//   const limit = params.limit||8
+//   //从哪里开始（offset）
+//   const skip = limit * (page - 1 )
+//   Article.find({
+//     isPublish: true,
+// }).limit(limit).skip(skip).exec().then((articles)=>{
+//   res.send(articles)
+// })
+ 
+
+// })
 
 
 
