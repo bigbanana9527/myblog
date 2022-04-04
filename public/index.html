@@ -15,3 +15,38 @@
     <!-- built files will be auto injected -->
   </body>
 </html>
+<script type="text/javascript" src="/live2dw/lib/L2Dwidget.min.js"></script>
+<!--model 模型的配置
+json 文件资源路径，可以支持网络路径，此处使用的是相对路径
+scale 模型缩放系数
+display 模型布局
+position 位置
+width 宽度
+height 高度
+hOffset 水平偏移量
+vOffset 垂直偏移量
+mobile 移动端配置
+show 显示/隐藏
+scale 缩放比例
+react 模型矩形框样式
+opacity 透明度
+opacityDefault 默认透明度
+opacityOnHover 鼠标悬浮透明度-->
+<script>
+  L2Dwidget.init({
+      pluginRootPath: "/live2dw/",//资源root路径
+      pluginJsPath: "lib/",//js相对root的路径
+      pluginModelPath: "assets/",//模型相对root的路径
+      tagMode: false,
+      debug: false,
+      model: {
+          jsonPath: "/live2dw/live2d-widget-model-epsilon2_1/assets/epsilon2.1.model.json"
+      },
+      display: {
+          position: "right", width: 200, height: 300,
+          hOffset: -20, vOffset: 0
+      },
+      mobile: {show: true,scale: 0.5},
+      react: {opacityDefault: 0.8, opacityOnHover: 0.1}
+  });
+</script>

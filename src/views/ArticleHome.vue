@@ -53,7 +53,7 @@ export default {
   methods: {
     async getAllArticleList() {
       const { data: res } = await this.$http.get("/api/articles");
-      this.allArticleList = res;
+      this.allArticleList = res.reverse();
       //设置总共页数
       this.cpn();
       //设置当前页面数据
@@ -62,6 +62,7 @@ export default {
       //遍历数组，取出年份，生成年份数组
       this.createYeararr(this.allArticleList);
     },
+    //设置当前页内容
     setcurrentPageData() {
       let begin = (this.currentPage - 1) * this.pageSize;
       let end = this.currentPage * this.pageSize;
