@@ -11,6 +11,7 @@ var data = JSON.parse(contents);
 mongoose.connect('mongodb://localhost/my-blog');
 var app=express();
 var db = mongoose.connection;
+//接收post请求的数据
 app.use(bodyParser.urlencoded({extended:false}))
 app.use(bodyParser.json())
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -148,7 +149,6 @@ app.post('/api/uploadimage', function (req, res) {
     //获取record
     app.get('/api/records',(req,res)=>{
       var data = JSON.parse(contents);
-      console.log(data)
       res.send(data)
     })
   app.listen("8083",function () {

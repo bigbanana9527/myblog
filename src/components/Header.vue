@@ -11,8 +11,8 @@
             <ul class="row">
                 <li><a href="/home" >首页</a></li>
                 <li><a href="/placeonfile" >归档</a></li>
-                <li><a href="" >链接</a></li>
-                <li><a href="" >关于</a></li>
+                <li><a href="/link" >链接</a></li>
+                <li><a href="/about" >关于</a></li>
             </ul>
             <div class="xnews-icon">
                 <a href="">s</a>

@@ -5,6 +5,7 @@ import ArticleDetail from '../views/ArticleDetail.vue'
 import ArticleHome from '../views/ArticleHome.vue'
 import PlaceOnFile from '../views/PlaceOnFile.vue'
 import PostArcitle from '../views/back/PostArcitle.vue'
+import About from '../views/About.vue'
 
 Vue.use(VueRouter)
 
@@ -29,6 +30,10 @@ const routes = [
       {
         path: '/placeonfile',
         component: PlaceOnFile
+      },
+      {
+        path: '/about',
+        component: About
       },
       {
         path: '/postarticle',
