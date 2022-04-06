@@ -4,6 +4,8 @@ var path = require("path");
 var multer = require('multer');
 const bodyParser = require('body-parser')
 var mongoose = require('mongoose');
+//引入os模块
+var os = require("os")
 //record
 var contents = fs.readFileSync("./public/record.json");
 var data = JSON.parse(contents);
@@ -31,6 +33,16 @@ var ArticleSchema = mongoose.Schema({
         date: Date,
         isPublish: Boolean,
   });
+      //评论结构
+var CommentSchema = mongoose.Schema({
+    cid: { type : Number, index: { unique: true } },
+          content: String,
+          hostname:String,
+          date:Date,
+          ip:String,
+
+      });
+  var Comment = mongoose.model('comments', CommentSchema);
    //将文档架构发布为模型
   var Article = mongoose.model('articles', ArticleSchema);
   //保存文章
@@ -87,6 +99,35 @@ app.delete('/api/article/:aid',  (req, res) => {
   })
 
 })
+  //获取全部已发表评论
+  app.get('/api/comment', (req, res) => {
+    Comment.find().exec().then((comments)=>{
+      res.send(comments)
+    })
+  })
+  //
+app.post('/api/comment', function (req, res) {
+  //获取自增的aid
+  Comment.count((err,count)=>{
+    console.log('收到评论请求',req.body)
+    var comment={
+      cid:count,
+      content:req.body.content,
+      hostname:req.header('???'),
+      ip:req.header('x-forwarded-for') || req.connection.remoteAddress,
+      date:req.body.date
+
+    }
+   
+    console.log('设备为',os.cpus())
+    Comment(comment).save()
+    console.log('保存成功')
+  res.status(200).send('succeed in saving new passage.')
+  })
+  
+
+  
+})
 //后端做分页查询
 // app.get('/api/article', (req, res) => {
 //   //const urlModule = require('url');
@@ -137,7 +178,7 @@ app.post('/api/uploadimage', function (req, res) {
         res.end(err.message);
         return
       }
-      let url = 'http://' + req.headers.host + '/public/resource/' + req.file.originalname
+      let url = 'http://' + '192.168.1.18:8083' + '/public/resource/' + req.file.originalname
       res.writeHead(200);
       res.end(JSON.stringify({'url': url}));
       console.log('-----------------上传完成------------------');
