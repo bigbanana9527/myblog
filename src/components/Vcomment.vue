@@ -3,7 +3,7 @@
       <img class="vimg" src="https://gravatar.loli.net/avatar/07a15b164d845a9e371b790eec0a8928?d=mp&amp;v=1.3.9">
       <div class="vh" rootid="624174a0e7afd47cc830fb36">
                 <div class="vhead">
-                    <a class="vnick" rel="nofollow"  target="_blank">慕辞</a> 
+                    <a class="vnick" rel="nofollow"  target="_blank">佚名</a> 
                     <span class="vsys">{{ip}}</span> </div>
                 <div class="vmeta">
                     <span class="vtime">{{date.substr(0,10)}}</span>

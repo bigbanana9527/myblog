@@ -15,10 +15,10 @@
                 <li><a href="/about" >关于</a></li>
             </ul>
             <div class="xnews-icon">
-                <a href="">s</a>
-                <a href="">h</a>
-                <a href="">e</a>
-                <a href="">i</a>
+                <a href="https://github.com/bigbanana9527/myblog"><i class="bi bi-github"></i></a>
+                <a href=""><i class="bi bi-twitter"></i></a>
+                <a href="https://icons.bootcss.com/"><i class="bi bi-bootstrap-fill"></i></a>
+                <a href=""><i class="bi bi-cloud-arrow-up-fill"></i></a>
             </div>
         </nav>
         <div class="space">
@@ -33,12 +33,15 @@
 </template>
 
 <script>
+
 export default {
 
 }
 </script>
 
 <style scoped>
+/* 引入第三方图标库 */
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css");
 .header{
  overflow: hidden;
  text-align: center;
@@ -88,13 +91,12 @@ a{
 
 .header nav .xnews-icon {
     margin-top: 10px;
-    font-family: xnews-icon;
-    font-size: 1.5em;
+    font-size: 1.2em;
     display: block;
 }
 .header nav .xnews-icon a{
-    margin: 4px;
-    color: #444;
+    margin: 6px;
+    color: #444;    
 }
 
 /* 当最小宽度伪768px所需要执行的代码 */

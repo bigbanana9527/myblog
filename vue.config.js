@@ -1,5 +1,6 @@
 module.exports={
     devServer:{
-        proxy:'http://192.168.1.18:8083'
-    }
+        proxy:'http://localhost:8083'
+    },
+    configureWebpack: { externals: 'hls.js' } // 在这配置webpack的externals这个字段
 }

@@ -59,8 +59,6 @@ export default {
       //设置当前页面数据
       this.setcurrentPageData();
       console.log(this.allArticleList);
-      //遍历数组，取出年份，生成年份数组
-      this.createYeararr(this.allArticleList);
     },
     //设置当前页内容
     setcurrentPageData() {

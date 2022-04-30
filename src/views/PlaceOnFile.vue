@@ -5,8 +5,8 @@
       <h4>{{item.year}}</h4>
       <ul>
         <li v-for="item in item.itemarr" :key="item.id">
-          <router-link to="/articleDetail" 
-            >{{item.title}}</router-link
+          <a @click="godetail(item.aid)"  class="alink"
+            >{{item.title}}</a
           >.&nbsp;
           <time> {{item.date | monday}}</time>
         </li>
@@ -37,7 +37,8 @@ filters: {
     async getAllArticleList() {
       const { data: res } = await this.$http.get("/api/articles");
       this.placeonfile = this.createYeararr(res);
-      console.log(res)
+      
+      console.log('数组为',this.placeonfile)
     },
         //生成年份的数组
     createYeararr(count) {
@@ -74,7 +75,10 @@ filters: {
           return item.date.slice(0, 4)==y
        })
        //此方法返回符合条件的数组
-       return arr
+       return arr.reverse()
+    },
+    godetail(id){
+      this.$router.push({ name: "articleDetail", params: { id: id } });
     }
   },
   created() {
@@ -104,11 +108,16 @@ li {
   text-align: left;
 
 }
-a{
-        background-color: transparent;
+.alink{
+    background-color: transparent;
   text-decoration: inherit;
   color: #919191;
   transition: color ease 0.3s;
+  cursor:pointer;
 
+}
+
+.alink:hover{
+  text-decoration:underline;
 }
 </style>

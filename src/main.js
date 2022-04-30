@@ -11,7 +11,7 @@ import 'mavon-editor/dist/css/index.css'
 import axios from 'axios'
 Vue.config.productionTip = false
 Vue.prototype.$http= axios
-axios.defaults.baseURL='http://192.168.1.18:8080/'
+axios.defaults.baseURL='http://localhost:8080/'
 
 //定义时间过滤器
 Vue.filter('dateFormat',dtStr=>{

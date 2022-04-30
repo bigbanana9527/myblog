@@ -4,7 +4,7 @@
   :music="{
     title: '给我一首歌的时间',
     artist: '周杰伦',
-    src: 'http://192.168.1.18:8083/public/resource/周杰伦 - 给我一首歌的时间.wav',
+    src: 'http://localhost:8083/public/resource/周杰伦 - 给我一首歌的时间.wav',
     pic: '//y.qq.com/music/photo_new/T002R300x300M000002Neh8l0uciQZ_1.jpg?max_age=2592000'
   }"
 />
@@ -16,7 +16,7 @@
             </div>
               <button type="button" title="Cmd|Ctrl+Enter" class="vsubmit vbtn float-right" @click="sendmessage">回复</button>
          </div>
-          <div class="vinfo" style="display:block;"><div class="vcount col"><span class="vnum">16</span> 评论</div></div>
+          <div class="vinfo" style="display:block;"><div class="vcount col"><span class="vnum">{{total}}</span> 评论</div></div>
           <div class="vlist m-2">
              <vcomment v-for="item in commentsList" :key="item.cid" :content=item.content :ip=item.ip :date=item.date> </vcomment>
           </div>
@@ -33,7 +33,8 @@ components: { aplayer, vcomment},
  data(){
    return{
       comment:'',
-      commentsList:[]
+      commentsList:[],
+      total:""
    }
  },
  methods:{
@@ -56,6 +57,7 @@ components: { aplayer, vcomment},
             
       const { data: res } = await this.$http.get("/api/comment");
       this.commentsList = res.reverse();
+      this.total=res.length
       console.log(res)
 
    

@@ -1,7 +1,7 @@
 <template>
   <div class="footer">
       <section class="coopright">
-          © 2022 - 2022
+          © 2022 - {{year}}
           <a href="/postarticle">
               发表
               文章测试
@@ -18,7 +18,9 @@
 export default {
 data(){
     return{
-       record:{}
+       record:{},
+       year:''
+
     }
 },
 methods:{
@@ -26,6 +28,12 @@ methods:{
       const { data: res } = await this.$http.get('/api/records')
       //从数组中随机取一个元素并赋值
       this.record=res[Math.floor(Math.random()*res.length)]
+      //获取当前年份
+      const date=new Date()
+      this.year=date.getFullYear();
+      console.log('foot',this.year)
+      
+
 },
 
 },

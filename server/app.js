@@ -5,7 +5,8 @@ var multer = require('multer');
 const bodyParser = require('body-parser')
 var mongoose = require('mongoose');
 //引入os模块
-var os = require("os")
+var os = require("os");
+const { count } = require("console");
 //record
 var contents = fs.readFileSync("./public/record.json");
 var data = JSON.parse(contents);
@@ -42,9 +43,19 @@ var CommentSchema = mongoose.Schema({
           ip:String,
 
       });
+      //评论结构
+var LinkSchema = mongoose.Schema({
+        lid: { type : Number, index: { unique: true } },
+        urladress: String,
+        title:String,
+        date:Date,
+        discripe:String,
+
+    });
   var Comment = mongoose.model('comments', CommentSchema);
    //将文档架构发布为模型
   var Article = mongoose.model('articles', ArticleSchema);
+  var Link = mongoose.model('link', LinkSchema);
   //保存文章
   app.post('/api/postarticle', function (req, res) {
     //获取自增的aid
@@ -126,6 +137,30 @@ app.post('/api/comment', function (req, res) {
   })
   
 
+  
+})
+  //获取全部已添加的链接
+  app.get('/api/link', (req, res) => {
+    Link.find().exec().then((links)=>{
+      res.send(links)
+    })
+  })
+app.post('/api/postlink', function (req, res) {
+  Link.count((err,count)=>{
+    var link={
+      lid:count,
+      title:req.body.title,
+      urladress:req.body.urladress,
+      date:req.body.date,
+      discripe:req.body.discripe,
+    }
+    console.log('收到发表链接请求',req.body)
+    Link(link).save()
+    console.log('保存成功')
+  res.status(200).send('succeed in saving new link.')
+
+  
+})
   
 })
 //后端做分页查询
