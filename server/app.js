@@ -213,7 +213,7 @@ app.post('/api/uploadimage', function (req, res) {
         res.end(err.message);
         return
       }
-      let url = 'http://' + '192.168.1.18:8083' + '/public/resource/' + req.file.originalname
+      let url = 'http://' + 'localhost:8083' + '/public/resource/' + req.file.originalname
       res.writeHead(200);
       res.end(JSON.stringify({'url': url}));
       console.log('-----------------上传完成------------------');

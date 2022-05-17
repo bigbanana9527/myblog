@@ -5,7 +5,7 @@
             <img src="../assets/xiaoxin.png" alt="" class="logo mt-5">
         </a>
         <h1>
-            <a href="">永远の小新</a>
+            <a href="/home">永远の小新</a>
         </h1>
         <nav>
             <ul class="row">
